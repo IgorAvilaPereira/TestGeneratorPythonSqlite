@@ -1,0 +1,6 @@
+<form method="post" action="/gerar">    
+    {% for tag in vetTag %}
+        <input name="tags" type="checkbox" value="{{tag[0]}}"> {{tag[1]}} <br>
+    {% endfor %}
+    <input type="submit" value="Gerar">
+</form>
