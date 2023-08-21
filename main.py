@@ -77,7 +77,7 @@ def alterar_tag(id):
     return redirect(url_for('index'))
 
 @app.route("/alterar_questao", methods=['POST'])
-def alterar_tag(id):
+def alterar_questao(id):
     conn = sqlite3.connect("database.db")
     cur = conn.cursor()
     questao = request.form.get("questao")   
