@@ -8,9 +8,10 @@
 <table border="1">
     {% for questao in vet %}
     <tr>
-        <td>{{questao[1]|safe}}</td>
+        <td><a href="/tela_adicionar_tags/{{questao[0]}}">Adicionar Tags</a></td> 
         <td><a href="/remover_questao/{{questao[0]}}">Remover</a></td> 
         <td><a href="/tela_alterar_questao/{{questao[0]}}">Alterar</a></td> 
+        <td>{{questao[1]|safe}}</td>       
     </tr>
     {% endfor %}  
 </table>      

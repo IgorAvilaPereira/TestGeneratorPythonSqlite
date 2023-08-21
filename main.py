@@ -29,6 +29,24 @@ def tela_adicionar_questao():
 def tela_adicionar_tag():
     return render_template('tela_adicionar_tag.html')
 
+@app.route("/tela_adicionar_tags/<int:id>", methods=['GET'])
+def tela_adicionar_tags(id):
+    conn = sqlite3.connect("database.db")
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM questoes where questoes.id = ?", [id])
+    questao = cur.fetchone()
+
+    cur.execute("SELECT * FROM tags")    
+    vetTag = cur.fetchall()
+
+    # ainda n foi p template
+    cur.execute("SELECT * FROM questoes inner join questoes_tags on (questoes.id = questao_id) where questoes.id = ?", [id])
+    vetQuestaoTag = cur.fetchall()
+
+    cur.close()
+    conn.close()
+    return render_template('tela_adicionar_tags.html', vetTag=vetTag, questao=questao)    
+    
 
 @app.route("/tela_alterar_questao/<int:id>", methods=['GET'])
 def tela_alterar_questao(id):
@@ -60,6 +78,24 @@ def remover_tag(id):
     cur = conn.cursor()
     cur.execute("DELETE FROM tags where id = ?", [id])
     conn.commit()   
+    cur.close()
+    conn.close()
+    return redirect(url_for('index'))
+
+@app.route("/adicionar_tags", methods=['POST'])
+def adicionar_tags():
+    id = int(request.form.get("id"))
+    
+    conn = sqlite3.connect("database.db")
+    cur = conn.cursor()
+
+    cur.execute("DELETE FROM questoes_tags WHERE questao_id = ?;", [id])
+    conn.commit()   
+
+    for tag_id in request.form.getlist('tags'):    
+        cur.execute("INSERT INTO questoes_tags (questao_id, tag_id) VALUES(?,?);", [id, tag_id])    
+        conn.commit()   
+
     cur.close()
     conn.close()
     return redirect(url_for('index'))
@@ -122,13 +158,28 @@ def adicionar_questao():
 
 @app.route("/gerar", methods=['POST'])
 def gerar():
-    # vetTag = list(map(int, request.form.getlist('tags')))    
-    # print("{tag}".format(tag=','.join(vetTag)))
+    vetTag = list(map(int, request.form.getlist('tags')))    
+    
+
     nro_questao = int(request.form.get("nro_questao"))        
+    
     conn = sqlite3.connect("database.db")
     cur = conn.cursor()
-    cur.execute("SELECT * FROM questoes ORDER BY random() limit ?", [nro_questao])
+    
+    if (vetTag is not None):
+        if (len(vetTag) > 0):
+            tags = "("
+            for t in vetTag:
+                tags = tags + str(t) + ","
+            tags = tags + ")"
+            tags = tags.replace(",)", ")")         
+
+            cur.execute("SELECT * FROM questoes inner join questoes_tags where tag_id in "+tags+" ORDER BY random() limit ?", [nro_questao])
+        else:
+            cur.execute("SELECT * FROM questoes inner join questoes_tags ORDER BY random() limit ?", [nro_questao])
+    
     vetQuestao = cur.fetchall()
+    
     cur.close()
     conn.close()
     return render_template('prova.html', vetQuestao=vetQuestao)

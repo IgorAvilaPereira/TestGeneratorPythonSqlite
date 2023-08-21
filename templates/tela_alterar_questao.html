@@ -1,13 +1,21 @@
-
 <html>
     <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
-    </head>
+        		
+		<script src="/static/jquery.js"></script>
+		<script src="/static/bootstrap/js/bootstrap.min.js"></script>
+
+        <script type="text/javascript" src="/static/nicedit/nicEdit-latest.js"></script>
+		<script type="text/javascript">			
+			bkLib.onDomLoaded(function () { nicEditors.allTextAreas({fullPanel : true})});
+		</script>
+</head>
 <body>
-<form method="post" action="/alterar_questao">    
-    Questão: <input name="questao" value="{{questao[1]}}">
-    <input type="hidden" name="id" value="{{questao[0]}}">
-    <input type="submit" value="Alterar">
-</form>
-</body> </html>
+    <form method="post" action="/alterar_questao">    
+        Questão: 
+        <textarea name="questao" rows="10" cols="50">{{questao[1]}}</textarea> 
+        <input type="hidden" name="id" value="{{questao[0]}}">
+
+        <input type="submit" value="Alterar">
+    </form>
+</body>
+</html>
