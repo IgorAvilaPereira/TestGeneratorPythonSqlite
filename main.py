@@ -1,40 +1,32 @@
-# import psycopg2
 import sqlite3
-from fastapi import FastAPI, Form, Request
-from fastapi.responses import HTMLResponse
-from fastapi.staticfiles import StaticFiles
-from fastapi.templating import Jinja2Templates
-from typing import Annotated
+from flask import Flask
+from flask import render_template
+from flask import request
 
+app = Flask(__name__)
 
+@app.route("/gerar", methods=['POST'])
+def gerar():
+    # vetTag = list(map(int, request.form.getlist('tags')))    
+    # print("{tag}".format(tag=','.join(vetTag)))
+    nro_questao = int(request.form.get("nro_questao"))        
+    conn = sqlite3.connect("database.db")
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM questoes ORDER BY random() limit ?", [nro_questao])
+    vetQuestao = cur.fetchall()
+    cur.close()
+    conn.close()
+    return render_template('prova.html', vetQuestao=vetQuestao)
 
-app = FastAPI()
-app.mount("/static", StaticFiles(directory="static"), name="static")
-templates = Jinja2Templates(directory="templates")
-
-@app.post("/gerar", response_class=HTMLResponse)
-async def gerar(tags: Annotated[int, Form()]):
-    # print(tags[0])
-    return tags
-    # req_info = request.json()
-    # print(request['tags'])
-    # conn = sqlite3.connect("database.db")
-    # cur = conn.cursor()
-    # cur.execute("SELECT * FROM tags")
-    # vetTag = cur.fetchall()
-    # cur.close()
-    # conn.close()
-    # return templates.TemplateResponse("prova.html", {"request": tags})
-
-@app.get("/", response_class=HTMLResponse)
-async def index(request: Request):
+@app.route("/")
+def index():
     conn = sqlite3.connect("database.db")
     cur = conn.cursor()
     cur.execute("SELECT * FROM tags")
     vetTag = cur.fetchall()
     cur.close()
     conn.close()
-    return templates.TemplateResponse("index.html", {"request": request, "vetTag": vetTag})
+    return render_template('index.html', vetTag=vetTag)
 
     # conSqlite3 = sqlite3.connect("database.db")
     # curSqlite3 = conSqlite3.cursor()

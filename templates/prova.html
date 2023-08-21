@@ -1,1 +1,4 @@
-{{request}}
+
+{% for questao in vetQuestao %}
+    {{questao[1]|safe}} <br>
+{% endfor %}
