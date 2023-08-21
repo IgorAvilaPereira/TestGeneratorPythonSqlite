@@ -29,6 +29,31 @@ def tela_adicionar_questao():
 def tela_adicionar_tag():
     return render_template('tela_adicionar_tag.html')
 
+
+@app.route("/tela_alterar_questao/<int:id>", methods=['GET'])
+def tela_alterar_questao(id):
+    conn = sqlite3.connect("database.db")
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM questoes where id = ?", [id])
+    # conn.commit()   
+    questao = cur.fetchone()
+    cur.close()
+    conn.close()
+    # return redirect(url_for('index'))
+    return render_template('tela_alterar_questao.html', questao=questao)
+
+@app.route("/tela_alterar_tag/<int:id>", methods=['GET'])
+def tela_alterar_tag(id):
+    conn = sqlite3.connect("database.db")
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM tags where id = ?", [id])
+    # conn.commit()   
+    tag = cur.fetchone()
+    cur.close()
+    conn.close()
+    # return redirect(url_for('index'))
+    return render_template('tela_alterar_tag.html', tag=tag)
+
 @app.route("/remover_tag/<int:id>", methods=['GET'])
 def remover_tag(id):
     conn = sqlite3.connect("database.db")
@@ -39,6 +64,29 @@ def remover_tag(id):
     conn.close()
     return redirect(url_for('index'))
 
+@app.route("/alterar_tag", methods=['POST'])
+def alterar_tag(id):
+    conn = sqlite3.connect("database.db")
+    cur = conn.cursor()
+    tag = request.form.get("tag")   
+    id = int(request.form.get("id")
+    cur.execute("UPDATE tags SET tag = ? where id = ?", [tag, id])
+    conn.commit()   
+    cur.close()
+    conn.close()
+    return redirect(url_for('index'))
+
+@app.route("/alterar_questao", methods=['POST'])
+def alterar_tag(id):
+    conn = sqlite3.connect("database.db")
+    cur = conn.cursor()
+    questao = request.form.get("questao")   
+    id = int(request.form.get("id")
+    cur.execute("UPDATE questoes SET questao = ? where id = ?", [questao, id])
+    conn.commit()   
+    cur.close()
+    conn.close()
+    return redirect(url_for('index'))
 
 @app.route("/remover_questao/<int:id>", methods=['GET'])
 def remover_questao(id):
