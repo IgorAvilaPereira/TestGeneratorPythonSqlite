@@ -1,3 +1,5 @@
+import psycopg2
+
 import sqlite3
 from flask import Flask, redirect, url_for
 from flask import render_template
@@ -204,19 +206,24 @@ def index():
     conn.close()
     return render_template('index.html', vetTag=vetTag)
 
-    # conSqlite3 = sqlite3.connect("database.db")
-    # curSqlite3 = conSqlite3.cursor()
-    # curSqlite3.execute("INSERT INTO questoes (questao) VALUES(?)", [questao[1]])
-    # conSqlite3.commit()     
+
+
+# @app.route("/importar")
+# def importar():
+#     # conSqlite3 = sqlite3.connect("database.db")
+#     # curSqlite3 = conSqlite3.cursor()
+#     # curSqlite3.execute("INSERT INTO questoes (questao) VALUES(?)", [questao[1]])
+#     # conSqlite3.commit()     
     
-    # conn = psycopg2.connect("host=localhost dbname=docente user=postgres password=postgres port=5432")
-    # cur = conn.cursor()
-    # cur.execute("SELECT * FROM questoes;")
-    # vetQuestao = cur.fetchall()
-    # for questao in vetQuestao:               
-    #     conSqlite3 = sqlite3.connect("database.db")
-    #     curSqlite3 = conSqlite3.cursor()
-    #     curSqlite3.execute("INSERT INTO questoes (questao) VALUES(?)", [questao[1]])
-    #     conSqlite3.commit()    
-    # cur.close()
-    # conn.close()
+#     conn = psycopg2.connect("host=localhost dbname=docente user=postgres password=postgres port=5432")
+#     cur = conn.cursor()
+#     cur.execute("SELECT * FROM avaliacoes;")
+#     vetQuestao = cur.fetchall()
+#     for questao in vetQuestao:               
+#         conSqlite3 = sqlite3.connect("database.db")
+#         curSqlite3 = conSqlite3.cursor()
+#         curSqlite3.execute("INSERT INTO questoes (questao) VALUES(?)", [questao[1]])
+#         conSqlite3.commit()    
+#     cur.close()
+#     conn.close()
+#     return "ok"
