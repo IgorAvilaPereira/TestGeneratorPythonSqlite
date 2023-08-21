@@ -3,7 +3,23 @@ from flask import Flask
 from flask import render_template
 from flask import request
 
+
 app = Flask(__name__)
+
+# from flask import Blueprint, render_template, abort
+# from jinja2 import TemplateNotFound
+
+# simple_page = Blueprint('simple_page', __name__,
+#                         template_folder='templates', static_folder="static")
+
+# @simple_page.route('/')
+# def show():
+#     try:
+#         return render_template("/simple_page/templates/index.html")
+#     except TemplateNotFound:
+#         return "agora"
+#         # abort(404)
+# app.register_blueprint(simple_page)
 
 @app.route("/gerar", methods=['POST'])
 def gerar():
