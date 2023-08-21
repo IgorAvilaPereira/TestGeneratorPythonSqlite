@@ -1,5 +1,5 @@
 import sqlite3
-from flask import Flask
+from flask import Flask, redirect, url_for
 from flask import render_template
 from flask import request
 
@@ -20,6 +20,23 @@ app = Flask(__name__)
 #         return "agora"
 #         # abort(404)
 # app.register_blueprint(simple_page)
+
+
+@app.route("/tela_adicionar_questao", methods=['GET'])
+def tela_adicionar_questao():
+    return render_template('tela_adicionar_questao.html')
+
+
+@app.route("/adicionar_questao", methods=['POST'])
+def adicionar_questao():
+    questao = request.form.get("questao")        
+    conn = sqlite3.connect("database.db")
+    cur = conn.cursor()
+    cur.execute("INSERT INTO questoes (questao) VALUES (?)", [questao])
+    conn.commit()   
+    cur.close()
+    conn.close()
+    return redirect(url_for('index'))
 
 @app.route("/gerar", methods=['POST'])
 def gerar():
