@@ -3,7 +3,6 @@ from flask import Flask, redirect, url_for
 from flask import render_template
 from flask import request
 
-
 app = Flask(__name__)
 
 # from flask import Blueprint, render_template, abort
@@ -26,6 +25,41 @@ app = Flask(__name__)
 def tela_adicionar_questao():
     return render_template('tela_adicionar_questao.html')
 
+@app.route("/tela_adicionar_tag", methods=['GET'])
+def tela_adicionar_tag():
+    return render_template('tela_adicionar_tag.html')
+
+@app.route("/remover_tag/<int:id>", methods=['GET'])
+def remover_tag(id):
+    conn = sqlite3.connect("database.db")
+    cur = conn.cursor()
+    cur.execute("DELETE FROM tags where id = ?", [id])
+    conn.commit()   
+    cur.close()
+    conn.close()
+    return redirect(url_for('index'))
+
+
+@app.route("/remover_questao/<int:id>", methods=['GET'])
+def remover_questao(id):
+    conn = sqlite3.connect("database.db")
+    cur = conn.cursor()
+    cur.execute("DELETE FROM questoes where id = ?", [id])
+    conn.commit()   
+    cur.close()
+    conn.close()
+    return redirect(url_for('index'))
+
+@app.route("/adicionar_tag", methods=['POST'])
+def adicionar_tag():
+    tag = request.form.get("tag")        
+    conn = sqlite3.connect("database.db")
+    cur = conn.cursor()
+    cur.execute("INSERT INTO tags (tag) VALUES (?)", [tag])
+    conn.commit()   
+    cur.close()
+    conn.close()
+    return redirect(url_for('index'))
 
 @app.route("/adicionar_questao", methods=['POST'])
 def adicionar_questao():

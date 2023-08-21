@@ -1,7 +1,8 @@
 <form method="post" action="/gerar">    
     Nro de Questões: <input type="number" value="1" name="nro_questao"> <br>
     {% for tag in vetTag %}
-        <input name="tags" type="checkbox" value="{{tag[0]}}"> {{tag[1]}} <br>
+        <input name="tags" type="checkbox" value="{{tag[0]}}"> {{tag[1]}} <a href="/remover_tag/{{tag[0]}}">Remover</a>
+        <br>
     {% endfor %}    
     <input type="submit" value="Gerar">
 </form>
