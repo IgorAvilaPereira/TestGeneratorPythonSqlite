@@ -39,13 +39,13 @@ def tela_adicionar_tags(id):
     cur.execute("SELECT * FROM tags")    
     vetTag = cur.fetchall()
 
-    # ainda n foi p template
-    cur.execute("SELECT * FROM questoes inner join questoes_tags on (questoes.id = questao_id) where questoes.id = ?", [id])
-    vetQuestaoTag = cur.fetchall()
-
+    cur.execute("SELECT tag_id FROM questoes inner join questoes_tags on (questoes.id = questao_id) where questoes.id = ?", [id])
+    vetQuestaoTag = []
+    for i in cur.fetchall():
+        vetQuestaoTag.append(i[0])
     cur.close()
     conn.close()
-    return render_template('tela_adicionar_tags.html', vetTag=vetTag, questao=questao)    
+    return render_template('tela_adicionar_tags.html', vetTag=vetTag, questao=questao, vetQuestaoTag=vetQuestaoTag)    
     
 
 @app.route("/tela_alterar_questao/<int:id>", methods=['GET'])

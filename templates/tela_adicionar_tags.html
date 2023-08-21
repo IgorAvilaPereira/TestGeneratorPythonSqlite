@@ -14,13 +14,16 @@
 <form method="post" action="/adicionar_tags">    
     Questão: <textarea name="questao" rows="10" cols="50">{{questao[1]}}</textarea> 
     
-    {% for tag in vetTag %}
-        <input name="tags" type="checkbox" value="{{tag[0]}}"> {{tag[1]}}            
-        <br>
-    {% endfor %}    
-    
-    <input type="hidden" name="id" value="{{questao[0]}}">
-    
+    {% for tag in vetTag %}    
+        {% if tag[0] in vetQuestaoTag %}
+            <input name="tags" type="checkbox" value="{{tag[0]}}" checked> {{tag[1]}}            
+            <br>
+        {% else %}                
+            <input name="tags" type="checkbox" value="{{tag[0]}}"> {{tag[1]}}            
+            <br>
+        {% endif %}    
+    {% endfor %}        
+    <input type="hidden" name="id" value="{{questao[0]}}">    
     <input type="submit" value="Atrelar Tags">
 </form>
 </body>
