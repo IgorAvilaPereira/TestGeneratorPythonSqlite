@@ -65,7 +65,7 @@ def remover_tag(id):
     return redirect(url_for('index'))
 
 @app.route("/alterar_tag", methods=['POST'])
-def alterar_tag(id):
+def alterar_tag():
     conn = sqlite3.connect("database.db")
     cur = conn.cursor()
     tag = request.form.get("tag")   
@@ -77,7 +77,7 @@ def alterar_tag(id):
     return redirect(url_for('index'))
 
 @app.route("/alterar_questao", methods=['POST'])
-def alterar_questao(id):
+def alterar_questao():
     conn = sqlite3.connect("database.db")
     cur = conn.cursor()
     questao = request.form.get("questao")   
