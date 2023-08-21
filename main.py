@@ -208,22 +208,23 @@ def index():
 
 
 
-# @app.route("/importar")
-# def importar():
-#     # conSqlite3 = sqlite3.connect("database.db")
-#     # curSqlite3 = conSqlite3.cursor()
-#     # curSqlite3.execute("INSERT INTO questoes (questao) VALUES(?)", [questao[1]])
-#     # conSqlite3.commit()     
+@app.route("/importar")
+def importar():
+    # conSqlite3 = sqlite3.connect("database.db")
+    # curSqlite3 = conSqlite3.cursor()
+    # curSqlite3.execute("INSERT INTO questoes (questao) VALUES(?)", [questao[1]])
+    # conSqlite3.commit()     
     
-#     conn = psycopg2.connect("host=localhost dbname=docente user=postgres password=postgres port=5432")
-#     cur = conn.cursor()
-#     cur.execute("SELECT * FROM avaliacoes;")
-#     vetQuestao = cur.fetchall()
-#     for questao in vetQuestao:               
-#         conSqlite3 = sqlite3.connect("database.db")
-#         curSqlite3 = conSqlite3.cursor()
-#         curSqlite3.execute("INSERT INTO questoes (questao) VALUES(?)", [questao[1]])
-#         conSqlite3.commit()    
-#     cur.close()
-#     conn.close()
-#     return "ok"
+    conn = psycopg2.connect("host=localhost dbname=docente user=postgres password=postgres port=5432")
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM avaliacoes where descricao is not null;")
+    vetQuestao = cur.fetchall()
+    for questao in vetQuestao:   
+        # print(questao)            
+        conSqlite3 = sqlite3.connect("database.db")
+        curSqlite3 = conSqlite3.cursor()
+        curSqlite3.execute("INSERT INTO questoes (questao) VALUES(?)", [questao[2]])
+        conSqlite3.commit()    
+    cur.close()
+    conn.close()
+    return "ok"
