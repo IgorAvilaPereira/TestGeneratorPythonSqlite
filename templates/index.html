@@ -1,3 +1,11 @@
+
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+    </head>
+<body>
+
 <form method="post" action="/gerar">    
     Nro de Questões: <input type="number" value="1" name="nro_questao"> <br>
     {% for tag in vetTag %}
@@ -8,4 +16,7 @@
     <input type="submit" value="Gerar">
 </form>
 
+<a href="/listar_questao">Questões</a>
+
 <a href="/tela_adicionar_questao">Adicionar Questão</a>
+</body> </html>

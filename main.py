@@ -133,6 +133,16 @@ def gerar():
     conn.close()
     return render_template('prova.html', vetQuestao=vetQuestao)
 
+@app.route("/listar_questao")
+def listar_questao():
+    conn = sqlite3.connect("database.db")
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM questoes")
+    vet = cur.fetchall()
+    cur.close()
+    conn.close()
+    return render_template('listar_questao.html', vet=vet)
+
 @app.route("/")
 def index():
     conn = sqlite3.connect("database.db")
