@@ -175,13 +175,13 @@ def gerar():
             tags = tags + ")"
             tags = tags.replace(",)", ")")         
 
-            cur.execute("SELECT * FROM questoes inner join questoes_tags where tag_id in "+tags+" ORDER BY random() limit ?", [nro_questao])
+            cur.execute("SELECT * FROM questoes inner join questoes_tags where tag_id in "+tags+" ORDER BY random() limit "+nro_questao)
         else:
             print("aqui2")
-            cur.execute("SELECT * FROM questoes ORDER BY random() limit ?", [nro_questao])
+            cur.execute("SELECT * FROM questoes ORDER BY random() limit "+nro_questao)
     else:
         print("aqui")
-        cur.execute("SELECT * FROM questoes ORDER BY random() limit ?", [nro_questao])
+        cur.execute("SELECT * FROM questoes ORDER BY random() limit "+nro_questao)
     
     vetQuestao = cur.fetchall()
     
