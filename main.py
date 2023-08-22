@@ -160,9 +160,10 @@ def adicionar_questao():
 
 @app.route("/gerar", methods=['POST'])
 def gerar():
-    vetTag = list(map(int, request.form.getlist('tags')))    
-
-    nro_questao = int(request.form.get("nro_questao"))        
+    nro_questao = 1
+    nro_questao = int(request.form.get("nro_questao"))   
+    
+    vetTag = list(map(int, request.form.getlist('tags')))       
     
     conn = sqlite3.connect("database.db")
     cur = conn.cursor()
@@ -175,13 +176,13 @@ def gerar():
             tags = tags + ")"
             tags = tags.replace(",)", ")")         
 
-            cur.execute("SELECT * FROM questoes inner join questoes_tags where tag_id in "+tags+" ORDER BY random() limit "+nro_questao)
+            cur.execute("SELECT * FROM questoes inner join questoes_tags where tag_id in "+tags+" ORDER BY random() limit "+str(nro_questao))
         else:
-            print("aqui2")
-            cur.execute("SELECT * FROM questoes ORDER BY random() limit "+nro_questao)
+            # print("aqui2")
+            cur.execute("SELECT * FROM questoes ORDER BY random() limit "+str(nro_questao))
     else:
-        print("aqui")
-        cur.execute("SELECT * FROM questoes ORDER BY random() limit "+nro_questao)
+        # print("aqui")
+        cur.execute("SELECT * FROM questoes ORDER BY random() limit "+str(nro_questao))
     
     vetQuestao = cur.fetchall()
     
