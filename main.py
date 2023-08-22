@@ -1,4 +1,4 @@
-import psycopg2
+# import psycopg2
 
 import sqlite3
 from flask import Flask, redirect, url_for
