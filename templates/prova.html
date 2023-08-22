@@ -1,11 +1,14 @@
 <html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
-    </head>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+</head>
+
 <body>
-{% for questao in vetQuestao %}
+    {% for questao in vetQuestao %}
     {{questao[1]|safe}} <br>
-{% endfor %}
+    {% endfor %}
 </body>
+
 </html>

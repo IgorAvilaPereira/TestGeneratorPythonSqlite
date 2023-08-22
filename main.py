@@ -134,7 +134,7 @@ def remover_questao(id):
     conn.commit()   
     cur.close()
     conn.close()
-    return redirect(url_for('index'))
+    return redirect(url_for('listar_questao'))
 
 @app.route("/adicionar_tag", methods=['POST'])
 def adicionar_tag():

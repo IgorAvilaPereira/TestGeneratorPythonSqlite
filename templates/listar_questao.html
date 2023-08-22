@@ -1,20 +1,23 @@
 <html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
-    </head>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+</head>
+
 <body>
 
-<table border="1">
-    {% for questao in vet %}
-    <tr>
-        <td><a href="/tela_adicionar_tags/{{questao[0]}}">Adicionar Tags</a></td> 
-        <td><a href="/remover_questao/{{questao[0]}}">Remover</a></td> 
-        <td><a href="/tela_alterar_questao/{{questao[0]}}">Alterar</a></td> 
-        <td>{{questao[1]|safe}}</td>       
-    </tr>
-    {% endfor %}  
-</table>      
+    <table border="1">
+        {% for questao in vet %}
+        <tr>
+            <td><a href="/tela_adicionar_tags/{{questao[0]}}">Adicionar Tags</a></td>
+            <td><a href="/remover_questao/{{questao[0]}}">Remover</a></td>
+            <td><a href="/tela_alterar_questao/{{questao[0]}}">Alterar</a></td>
+            <td>{{questao[1]|safe}}</td>
+        </tr>
+        {% endfor %}
+    </table>
     <a href="/tela_adicionar_questao">Adicionar Questão</a>
 </body>
+
 </html>

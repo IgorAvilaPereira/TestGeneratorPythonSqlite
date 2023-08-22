@@ -1,12 +1,16 @@
 <html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
-    </head>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+</head>
+
 <body>
-<form method="post" action="/alterar_tag">    
-    Questão: <input name="tag" value="{{tag[1]}}">
-    <input type="hidden" name="id" value="{{tag[0]}}">
-    <input type="submit" value="Alterar">
-</form>
-</body> </html>
+    <form method="post" action="/alterar_tag">
+        Questão: <input name="tag" value="{{tag[1]}}">
+        <input type="hidden" name="id" value="{{tag[0]}}">
+        <input type="submit" value="Alterar">
+    </form>
+</body>
+
+</html>

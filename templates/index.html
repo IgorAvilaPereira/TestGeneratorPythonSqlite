@@ -1,24 +1,27 @@
-
 <html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
-    </head>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+</head>
+
 <body>
 
-<form method="post" action="/gerar">    
-    Nro de Questões: <input type="number" value="1" name="nro_questao"> <br>
-    {% for tag in vetTag %}
-        <input name="tags" type="checkbox" value="{{tag[0]}}"> {{tag[1]}} <a href="/remover_tag/{{tag[0]}}">Remover</a>
-        <a href="/tela_alterar_tag/{{tag[0]}}">Alterar</a>
-        <br>
-    {% endfor %}    
-    <input type="submit" value="Gerar">
-</form>
+    <form method="post" action="/gerar">
+        Nro de Questões: <input type="number" value="1" name="nro_questao"> <br>
+        {% for tag in vetTag %}
+            <input name="tags" type="checkbox" value="{{tag[0]}}"> {{tag[1]}} <a href="/remover_tag/{{tag[0]}}">Remover</a>
+            <a href="/tela_alterar_tag/{{tag[0]}}">Alterar</a>
+            <br>
+        {% endfor %}
+        <input type="submit" value="Gerar">
+    </form>
 
-<a href="/tela_adicionar_tag">Adicionar Tag</a> <br>
+    <a href="/tela_adicionar_tag">Adicionar Tag</a> <br>
 
-<a href="/listar_questao">Questões</a> <br>
+    <a href="/listar_questao">Questões</a> <br>
 
-<!-- <a href="/tela_adicionar_questao">Adicionar Questão</a> -->
-</body> </html>
+    <!-- <a href="/tela_adicionar_questao">Adicionar Questão</a> -->
+</body>
+
+</html>
