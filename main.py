@@ -198,7 +198,7 @@ def listar_questao(page):
     start_from = (page-1)*records
     conn = sqlite3.connect("database.db")
     cur = conn.cursor()        
-    cur.execute("select count(*) as total from questoes")
+    cur.execute("select count(*) as total from questoes")    
     total_records = cur.fetchone()[0]
     total_pages = math.ceil(total_records/records)    
     cur.execute("select * FROM questoes order by id desc limit "+str(records)+" offset "+str(start_from))
@@ -207,7 +207,7 @@ def listar_questao(page):
     conn.close()
     html_paginacao = ""
     i = 1
-    while( i <= total_pages):        
+    while (i <= total_pages):        
         html_paginacao = html_paginacao + "<a href='"+str(i)+"'>"+str(i)+"</a>&nbsp;&nbsp;"; 
         i = i + 1     
     return render_template('listar_questao.html', vet=vet, html_paginacao=html_paginacao)
