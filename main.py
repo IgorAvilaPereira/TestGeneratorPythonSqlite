@@ -4,6 +4,7 @@ import sqlite3
 from flask import Flask, redirect, url_for
 from flask import render_template
 from flask import request
+import math
 
 app = Flask(__name__)
 
@@ -190,15 +191,26 @@ def gerar():
     conn.close()
     return render_template('prova.html', vetQuestao=vetQuestao)
 
-@app.route("/listar_questao")
-def listar_questao():
+@app.route("/listar_questao/", defaults={ 'page': 1 })
+@app.route("/listar_questao/<int:page>")
+def listar_questao(page):
+    records = 10
+    start_from = (page-1)*records
     conn = sqlite3.connect("database.db")
-    cur = conn.cursor()
-    cur.execute("SELECT * FROM questoes")
+    cur = conn.cursor()        
+    cur.execute("select count(*) as total from questoes")
+    total_records = cur.fetchone()[0]
+    total_pages = math.ceil(total_records/records)    
+    cur.execute("select * FROM questoes order by id desc limit "+str(records)+" offset "+str(start_from))
     vet = cur.fetchall()
     cur.close()
     conn.close()
-    return render_template('listar_questao.html', vet=vet)
+    html_paginacao = ""
+    i = 1
+    while( i <= total_pages):        
+        html_paginacao = html_paginacao + "<a href='"+str(i)+"'>"+str(i)+"</a>&nbsp;&nbsp;"; 
+        i = i + 1     
+    return render_template('listar_questao.html', vet=vet, html_paginacao=html_paginacao)
 
 @app.route("/")
 def index():
